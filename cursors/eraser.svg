@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" height="32" width="32">
+
+	<line id="svg_1" y1="-15" x1="0" y2="75" x2="0" stroke-width="25" stroke="#000" fill="none" transform="translate(12.5,12.5)"/>
+	<line id="svg_2" y1="0" x1="0" y2="0" x2="75" stroke-width="25" stroke="#000" fill="none" transform="translate(12.5,12.5)"/>
+	<line id="svg_1" y1="-7.5" x1="0" y2="70" x2="0" stroke-width="15" stroke="#fff" fill="none" transform="translate(12.5,12.5)"/>
+	<line id="svg_2" y1="0" x1="0" y2="0" x2="70" stroke-width="15" stroke="#fff" fill="none" transform="translate(12.5,12.5)"/>
+	
+	<path id="path" stroke="#000000" stroke-width="20" fill="#ffffff" transform="translate(40,40) scale(0.2)" d="M497.941 273.941c18.745-18.745 18.745-49.137 0-67.882l-160-160c-18.745-18.745-49.136-18.746-67.883 0l-256 256c-18.745 18.745-18.745 49.137 0 67.882l96 96A48.004 48.004 0 0 0 144 480h356c6.627 0 12-5.373 12-12v-40c0-6.627-5.373-12-12-12H355.883l142.058-142.059zm-302.627-62.627l137.373 137.373L265.373 416H150.628l-80-80 124.686-124.686z"/>
+</svg>

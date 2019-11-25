@@ -1,0 +1,474 @@
+<!--
+ * Pixel editor
+ *
+ * @summary Pixel editor
+ * @author Antoine Drabble
+ *
+ * Copyright (c) 2019 Antoine Drabble
+ *
+ * Created at : 2019-08-17
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Pixel</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css" />
+	<link rel="stylesheet" href="colorpicker/colorpicker.css" />
+    <link rel="stylesheet" href="pixeleditor/pixeleditor.css" />
+    <link rel="stylesheet" href="menu/menu.css" />
+	<link rel="stylesheet" href="tabs/tabs.css" />
+	<link rel="stylesheet" href="modal/modal.css" />
+	<link rel="stylesheet" href="style.css" />
+
+	<script src="colorpicker/colorpicker.js"></script>
+	<script src="pixeleditor/pixeleditorcanvas.js"></script>
+	<script src="pixeleditor/pixeleditor.js"></script>
+	<script src="tabs/tabs.js"></script>
+	<script src="modal/modal.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+	<script src="menu/menu.js"></script>
+</head>
+<body>
+	<div class="container">
+		<div class="modal" id="new-file-modal">
+			<button class="close"><i class="fa fa-times"></i></button>
+			<div>
+			<label>Name</label>
+			<input type="text" id="new-file-modal-name"/>
+		</div>
+		<div>
+			<label>Width</label>
+			<input type="number" id="new-file-modal-width"/>
+		</div>
+		<div>
+			<label>Height</label>
+	
+			<input type="number" id="new-file-modal-height"/>
+		</div>
+			<button class="submit">Create</button>
+		</div>
+		<div id="top">
+			<ul id="menu" class="main-menu">
+				<li>
+					File
+					<ul>
+						<li>
+							<a href="javascript:void(0)" id="new-file">New<span>Ctrl+N</span></a>
+						</li>
+						<li>
+							<a href="javascript:void(0)">Open<span>Ctrl+O</span></a>
+						</li>
+						<li class="separator"></li>
+						<li>
+							Export As
+							<ul>
+								<li><a href="javascript:void(0)">PNG<span>Ctrl+S</span></a></li>
+								<li><a href="javascript:void(0)">JPG<span>Ctrl+J</span></a></li>
+								<li><a href="javascript:void(0)">GIF<span>Ctrl+G</span></a></li>
+							</ul>
+						</li>
+						<li class="separator"></li>
+						<li class="icon print"><a href="javascript:void(0)">Print<span>Ctrl+P</span></a></li>
+					</ul>
+				</li>
+				<li>
+					Edit
+					<ul>
+						<li>
+							<a href="javascript:void(0)">Resize<span>Ctrl+R</span></a>
+						</li>
+						<li>
+							<a href="javascript:void(0)" style="padding-right: 10px;">Canvas Size<span>Ctrl+T</span></a>
+						</li>
+					</ul>
+				</li>
+				<li>
+					Help
+					<ul>
+						<li><a href="javascript:void(0)">Help<span>Ctrl+H</span></a></li>
+						<li><a href="javascript:void(0)">Shortcuts<span>Ctrl+J</span></a></li>
+						<li class="separator"></li>
+						<li>Copyright</li>
+					</ul>
+				</li>
+			</ul>
+
+			<div id="tabs" class="tabs">
+				<ul>
+						
+
+				</ul>
+			</div>
+		</div>
+		<div id="left" oncontextmenu="return false">
+			<div class="color-tools">
+				<p>
+					<a class="fa fa-paint-brush color-tool selected-tool" id="brush-tool" href="#" title="Paint brush (b)"></a>
+					<a class="fa fa-eye-dropper color-tool" id="picker-tool" href="#" title="Color picker (p)"></a>
+					<a class="fa fa-eraser color-tool" id="eraser-tool" href="#" title="Eraser (e)"></a>
+					<a class="fa fa-fill-drip color-tool" id="fill-tool" href="#" title="Fill (f)"></a>
+					<a class="fa fa-undo color-tool" id="undo" href="#" title="Undo (ctrl+z)"></a>
+					<a class="fa fa-redo color-tool" id="redo" href="#" title="Redo (ctrl+y)"></a>
+				</p>
+			</div>
+
+			<div class="tool-settings" id="brush-tool-setting">
+				<div class="tool-setting">
+					<label class="tool-setting-cell tool-setting-label">Size</label>
+					<span class="tool-setting-cell tool-setting-input"><input type="range" min="1" max="50" value="1" id="brush-tool-setting-size"/></span>
+					<span class="tool-setting-cell tool-setting-value" id="brush-tool-setting-size-value">1</span>
+				</div>
+				<div class="tool-setting">
+					<label class="tool-setting-cell tool-setting-label">Blend Mode</label>
+					<select class="tool-setting-cell" id="brush-tool-setting-blendmode">
+						<option value="1">Alpha Multiply</option>
+						<option value="2">Override</option>
+						<option value="3">Weird</option>
+					</select>
+				</div>
+				<div class="tool-setting">
+					<label class="tool-setting-cell tool-setting-label">Interpolate movement</label>
+					<span class="tool-setting-cell"><input type="checkbox" id="brush-tool-setting-interpolate"></span>
+				</div>
+				<div class="tool-setting">
+					<label class="tool-setting-cell tool-setting-label">Shape</label>
+					<span class="tool-setting-cell">
+					<input type="radio" id="test1" name="radio-group" checked>
+					</span>
+					<span class="tool-setting-cell">
+					<input type="radio" id="test2" class="square" name="radio-group">
+					</span>
+					<span class="tool-setting-cell">
+					<input type="radio" id="test3" class="diamond" name="radio-group">
+					</span>
+				</div>
+			</div>
+			<div class="tool-settings collapsed" id="eraser-tool-setting">
+				<div class="tool-setting">
+					<label class="tool-setting-cell tool-setting-label">Size</label>
+					<span class="tool-setting-cell tool-setting-input"><input type="range" min="1" max="50" value="1" id="eraser-tool-setting-size"/></span>
+					<span class="tool-setting-cell tool-setting-value" id="eraser-tool-setting-size-value">1</span>
+				</div>
+				<div class="tool-setting">
+					<label class="tool-setting-cell tool-setting-label">Strength</label>
+					<span class="tool-setting-cell tool-setting-input"><input type="range" min="0" max="1" value="1" id="eraser-tool-setting-strength"/></span>
+					<span class="tool-setting-cell tool-setting-value" id="eraser-tool-setting-strength-value">1</span>
+				</div>
+			</div>
+			<div class="tool-settings collapsed" id="fill-tool-setting">
+				<div class="tool-setting">
+					<label class="tool-setting-cell tool-setting-label">Strength</label>
+					<span class="tool-setting-cell tool-setting-input"><input type="range" min="0" max="1" value="1" id="fill-tool-setting-strength"/></span>
+					<span class="tool-setting-cell tool-setting-value" id="fill-tool-setting-strength-value">1</span>
+				</div>
+			</div>
+
+			<div class="wheel-container">
+				<div class="transparency-background" style="clip-path: circle(125px at center);"><canvas  class="color-picker wheel" id="color-picker" width="250" height="250"></canvas></div>
+				<div class="transparency-background picked-color-background"><div id="picked-color"></div></div>
+			</div>
+			<div class="color-controls">
+				<input type="range" class="color-control brightness-slider" min="0" max="100" step="1" value="100" title="Brightness (-/+)" />
+				<input type="range" class="color-control opacity-slider" min="0" max="255" step="1" value="255" title="Opacity (ctrl-/ctrl+)" />
+			</div>
+			<div class="color-data">
+				<div><label>RGB</label> <input type="text" id="rgbVal" /></div>
+				<div><label>CMYK</label> <input type="text" id="cmykVal" /></div>
+				<div><label>HEX</label> <input type="text" id="hexVal" /></div>
+				<div><label>HSV</label> <input type="text" id="hsvVal" /></div>
+				<div><label>Alpha</label> <input type="text" id="alphaVal" /></div>
+			</div>
+		</div>
+		<div id="right">
+			<div class="pixel-editor-toggles">
+				<div class="pixel-editor-toggle"><a class="fa fa-border-all pixel-editor-toggled" id="show-grid" href="#" title="Show grid (g)"></a></div>
+				<div class="pixel-editor-toggle"><a class="fa fa-square" id="show-white-background" href="#" title="White background (w)"></a></div>
+				<div class="pixel-editor-toggle"><a class="fa fa-expand-arrows-alt" id="full-screen" href="#" title="Full screen (f11)"></a></div>
+			</div>
+			<div class="pixel-editor-buttons">
+				<div class="pixel-editor-button"><a class="fa fa-plus" id="zoom-in" href="#" title="Zoom in (scroll down)"></a></div>
+				<div class="pixel-editor-button"><a class="fa fa-minus" id="zoom-out" href="#" title="Zoom out (scroll up)"></a></div>
+				<div class="pixel-editor-button"><a class="fa fa-expand" id="recenter" href="#" title="Center image (r)"></a></div>
+			</div>
+		</div>
+	</div>
+	<script>
+		document.addEventListener("DOMContentLoaded", function(event) {
+			var brush = {'type': PixelEditor.tools.brush, 'size': 1, 'blendmode': 1};
+			var picker = {'type': PixelEditor.tools.picker};
+			var eraser = {'type': PixelEditor.tools.eraser, 'size': 1};
+			var fill = {'type': PixelEditor.tools.fill, 'strength': 1};
+			var selectedTool = brush;
+
+			var pixelEditor = new PixelEditor('right', function(currentColor){
+				colorPicker.setColor(currentColor);
+			});
+			
+			var colorPicker = new ColorPicker('color-picker', 250, 250, function(currentColor){
+				pixelEditor.setColor(currentColor);
+			});
+			
+			var tabs = new Tabs('tabs',
+				function(i){
+					pixelEditor.setCanvas(i);
+				}, 
+				function(i){
+					pixelEditor.removeCanvas(i);
+				}
+			);
+
+			var mainMenu = new MainMenu().init();
+
+			// Tool settings
+			var brushToolSettingSize = document.getElementById('brush-tool-setting-size');
+			brushToolSettingSize.addEventListener('input', function() {
+				brush.size = this.value;
+				pixelEditor.setTool(brush);
+				document.getElementById('brush-tool-setting-size-value').textContent = this.value;
+			});
+			var brushToolSettingBlendmode = document.getElementById('brush-tool-setting-blendmode');
+			brushToolSettingBlendmode.addEventListener('change', function() {
+				brush.blendmode = this.value;
+				pixelEditor.setTool(brush);
+			});
+			
+			// ---------- Tools selection -------------
+
+			// Brush
+			document.getElementById("brush-tool").addEventListener("click", function(){
+				var selectedTools = document.getElementsByClassName('selected-tool');
+				for(var i = 0; i < selectedTools.length; i++){
+					selectedTools[i].classList.remove("selected-tool");
+				}
+				this.classList.add("selected-tool");
+				document.getElementById('right').style.cursor = "url('cursors/brush.svg'), auto";
+				selectedTool = brush;
+				pixelEditor.setTool(selectedTool);
+				var toolSettings = document.getElementsByClassName('tool-settings');
+				for(var i = 0; i < toolSettings.length; i++){
+					toolSettings[i].classList.add("collapsed");
+				}
+				document.getElementById("brush-tool-setting").classList.remove("collapsed");
+			});
+
+			// Picker
+			document.getElementById("picker-tool").addEventListener("click", function(){
+				var selectedTools = document.getElementsByClassName('selected-tool');
+				for(var i = 0; i < selectedTools.length; i++){
+					selectedTools[i].classList.remove("selected-tool");
+				}
+				this.classList.add("selected-tool");
+				document.getElementById('right').style.cursor = "url('cursors/picker.svg'), auto";
+				selectedTool = picker;
+				pixelEditor.setTool(selectedTool);
+				var toolSettings = document.getElementsByClassName('tool-settings');
+				for(var i = 0; i < toolSettings.length; i++){
+					toolSettings[i].classList.add("collapsed");
+				}
+			});
+
+			// Eraser
+			document.getElementById("eraser-tool").addEventListener("click", function(){
+				var selectedTools = document.getElementsByClassName('selected-tool');
+				for(var i = 0; i < selectedTools.length; i++){
+					selectedTools[i].classList.remove("selected-tool");
+				}
+				this.classList.add("selected-tool");
+				document.getElementById('right').style.cursor = "url('cursors/eraser.svg'), auto";
+				selectedTool = eraser;
+				pixelEditor.setTool(selectedTool);
+				var toolSettings = document.getElementsByClassName('tool-settings');
+				for(var i = 0; i < toolSettings.length; i++){
+					toolSettings[i].classList.add("collapsed");
+				}
+				document.getElementById("eraser-tool-setting").classList.remove("collapsed");
+			});
+
+			// Fill
+			document.getElementById("fill-tool").addEventListener("click", function(){
+				var selectedTools = document.getElementsByClassName('selected-tool');
+				for(var i = 0; i < selectedTools.length; i++){
+					selectedTools[i].classList.remove("selected-tool");
+				}
+				this.classList.add("selected-tool");
+				document.getElementById('right').style.cursor = "url('cursors/fill.svg'), auto";
+				selectedTool = fill;
+				pixelEditor.setTool(selectedTool);
+				var toolSettings = document.getElementsByClassName('tool-settings');
+				for(var i = 0; i < toolSettings.length; i++){
+					toolSettings[i].classList.add("collapsed");
+				}
+				document.getElementById("fill-tool-setting").classList.remove("collapsed");
+			});
+
+			document.getElementById("undo").addEventListener("mousedown", function(){
+				pixelEditor.undo();
+			});
+			document.getElementById("redo").addEventListener("mousedown", function(){
+				pixelEditor.redo();
+			});
+			document.getElementById("zoom-in").addEventListener("mousedown", function(e){
+				pixelEditor.zoomIn(5);
+				e.stopPropagation();
+			});
+			document.getElementById("zoom-out").addEventListener("mousedown", function(e){
+				pixelEditor.zoomOut(5);
+				e.stopPropagation();
+			});
+			document.getElementById("show-grid").addEventListener("mousedown", function(e){
+				pixelEditor.toggleGrid();
+				this.classList.toggle("pixel-editor-toggled");
+				e.stopPropagation();
+			});
+			document.getElementById("show-white-background").addEventListener("mousedown", function(e){
+				pixelEditor.toggleTransparencyBackground();
+				this.classList.toggle("pixel-editor-toggled");
+				e.stopPropagation();
+			});
+
+			document.getElementById("recenter").addEventListener("mousedown", function(e){
+				pixelEditor.recenter();
+				e.stopPropagation();
+			});
+
+			document.getElementById("full-screen").addEventListener("mousedown", function(e){
+				toggleFullscreen(e);
+				e.stopPropagation();
+			});
+			document.addEventListener("fullscreenchange", function() {
+				document.getElementById("full-screen").classList.toggle("pixel-editor-toggled");
+			});
+			document.addEventListener("mozfullscreenchange", function() {
+				document.getElementById("full-screen").classList.toggle("pixel-editor-toggled");
+			});
+			document.addEventListener("webkitfullscreenchange", function() {
+				document.getElementById("full-screen").classList.toggle("pixel-editor-toggled");
+			});
+			document.addEventListener("msfullscreenchange", function() {
+				document.getElementById("full-screen").classList.toggle("pixel-editor-toggled");
+			});
+
+			// Menu buttons
+			var newFileModal = new Modal("new-file-modal", function(){
+				console.log("clicked submit");
+				pixelEditor.createCanvas(1000,1000);
+				tabs.newTab("test");
+			})
+
+			document.getElementById('new-file').addEventListener("mousedown", function(e) {
+				console.log("open modal");
+				newFileModal.open();
+				e.preventDefault();
+			});
+			
+			// shortcuts
+			document.addEventListener("keydown", function(e) {
+				if(document.activeElement.type == "text" || document.activeElement.type == "number"){ // Don't allow shortcuts when the user is editing a text input
+					return;
+				}
+
+				// Tool select
+				//Do action on b
+				if (e.keyCode == 66) {
+					document.getElementById("brush-tool").click();
+				}
+				//Do action on p
+				else if (e.keyCode == 80) {
+					document.getElementById("picker-tool").click();
+				}
+				//Do action on e
+				else if (e.keyCode == 69) {
+					document.getElementById("eraser-tool").click();
+				}
+				//Do action on f
+				else if (e.keyCode == 70) {
+					document.getElementById("fill-tool").click();
+				}
+				
+				//Do action on CTRL + Z
+				if (e.keyCode == 90 && e.ctrlKey) {
+					pixelEditor.undo();
+				}
+				//Do action on CTRL + Y
+				else if (e.keyCode == 89 && e.ctrlKey) {
+					pixelEditor.redo();
+				}
+				
+				//Do action on left
+				if(e.keyCode == 37){
+					pixelEditor.moveLeft(5);
+				}
+				//Do action on up
+				if(e.keyCode == 38){
+					pixelEditor.moveUp(5);
+				}
+				//Do action on right
+				if(e.keyCode == 39){
+					pixelEditor.moveRight(5);
+				}
+				//Do action on down
+				if(e.keyCode == 40){
+					pixelEditor.moveDown(5);
+				}	
+				
+				
+				//Do action on shift + +
+				if (e.keyCode == 107 && e.shiftKey) {
+					pixelEditor.zoomIn(5);
+				}
+				//Do action on shift + -
+				else if (e.keyCode == 109 && e.shiftKey) {
+					pixelEditor.zoomOut(5);
+				}
+				//Do action on alt + +
+				else if (e.keyCode == 107 && e.altKey) {
+					colorPicker.increaseOpacity(0.05);
+				}
+				//Do action on alt + -
+				else if (e.keyCode == 109 && e.altKey) {
+					colorPicker.decreaseOpacity(0.05);
+				}
+				//Do action on +
+				else if (e.keyCode == 107) {
+					colorPicker.increaseBrightness(1);
+				}
+				//Do action on -
+				else if (e.keyCode == 109) {
+					colorPicker.decreaseBrightness(1);
+				}
+				
+				// Previous tab ctrl+shift+tab
+				if(e.shiftKey && e.keyCode == 9){
+					tabs.previousTab();
+					e.preventDefault();
+				}
+				// Next tab ctrl+tab
+				else if(e.keyCode == 9){
+					tabs.nextTab();
+					e.preventDefault();
+				}
+			});
+
+			/**
+			 * Toggle fullscreen function who work with webkit and firefox.
+			 * @function toggleFullscreen
+			 * @param {Object} event
+			 */
+			function toggleFullscreen(event) {
+				var element = document.body;
+
+					if (event instanceof HTMLElement) {
+						element = event;
+					}
+
+					var isFullscreen = document.webkitIsFullScreen || document.mozFullScreen || false;
+
+					element.requestFullScreen = element.requestFullScreen || element.webkitRequestFullScreen || element.mozRequestFullScreen || function () { return false; };
+					document.cancelFullScreen = document.cancelFullScreen || document.webkitCancelFullScreen || document.mozCancelFullScreen || function () { return false; };
+
+					isFullscreen ? document.cancelFullScreen() : element.requestFullScreen();
+				}
+			});
+	</script>
+</body>
+</html>

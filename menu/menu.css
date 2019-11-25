@@ -1,0 +1,112 @@
+﻿ul.main-menu
+{
+    list-style-type: none;
+    margin: 0px 0px 10px 0px;
+    padding: 0px;    
+	color: #ffffff;
+	-webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+ul.main-menu > li
+{
+    margin: 0;
+    display: inline;
+    list-style-type: none;
+    padding: 6px 4px 6px 6px;
+    line-height: 28px;
+    vertical-align: middle;
+    cursor: default;
+    outline: none;
+    border-style: solid;
+    border-width: 1px 1px 0 1px;
+    border-color: transparent;
+}
+
+ul.main-menu > li.active-menu
+{
+    background-color: #2c2c2c;
+    border-color: #4c4c4c;
+    -webkit-box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+ul.main-menu ul li a
+{
+    color: #ffffff;
+    text-decoration: none;
+    display: block;
+    white-space: nowrap;
+}
+ul.main-menu li ul li a span
+{
+    font-size: 11px;
+    color: #ffffff;
+    float:right;
+    right: 10px;
+    left: auto;
+    position: absolute;
+}
+
+/* SUBMENU */
+ul.main-menu > li  ul
+{
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: none;
+    border-width:1px;
+    border-style: solid;
+    border-color: #4c4c4c;
+    background-color: #1c1c1c;
+    -webkit-box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+}
+ul.main-menu li ul li
+{
+    display:list-item;
+    margin: 0;
+    line-height: 26px;
+    padding-right: 40px;
+    min-width: 100px;
+    cursor: pointer;
+    text-indent: 30px;
+    white-space:nowrap;
+}
+ul.main-menu li:hover
+{
+    background-color: #2c2c2c; /*#fef7cb;*/
+}
+ul.main-menu li.active-menu:hover
+{
+    background-color: #1c1c1c;
+}
+ul.main-menu li ul li.disabled, ul.main-menu li ul li.disabled:hover, ul.main-menu li ul li.disabled a
+{
+    color: #5c5c5c;
+    cursor:default;
+    background-color: #1c1c1c;
+}
+
+ul.main-menu li.separator  
+{
+    border-top: 1px solid #4c4c4c; 
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+.menu-arrow{
+	float: right;
+	margin-top: 8px;;
+	margin-right: -30px;
+	font-size: 10px;
+	vertical-align: middle;
+}
+
+#menu-top-mask{
+	height: 2px; background-color: #aeaeae; z-index:1001;
+}

@@ -1,0 +1,265 @@
+.container {
+    display: block;
+    position:absolute;
+    height:auto;
+    bottom:0;
+    top:0;
+    left:0;
+    right:0;
+	font-family: Segoe UI,Frutiger,Frutiger Linotype,Dejavu Sans,Helvetica Neue,Arial,sans-serif; 
+}
+.container a{
+	color: #ffffff;
+	text-decoration: none;
+}
+#top {
+	background-color: #1c1c1c;
+	width: 100%;
+	height: 30px;
+}
+#left {
+	background-color: #1c1c1c;
+	width: 270px;
+	position: absolute;
+	left: 0;
+	top: 30px;
+	bottom: 0;
+	height: auto;
+	display: block;
+	color: white;
+	overflow:auto;
+	-webkit-box-shadow: inset 0 7px 9px -7px rgba(0,0,0,0.8);
+    -moz-box-shadow: inset 0 7px 9px -7px rgba(0,0,0,0.8);
+	box-shadow: inset 0 7px 9px -7px rgba(0,0,0,0.8);
+}
+#right {
+	position: absolute;
+	left: 270px;
+	top: 30px;
+	bottom: 0px;
+	right: 0px;
+	width: auto;
+	height: auto;
+	cursor: url('cursors/brush.svg'), auto;
+	background-repeat: repeat;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+	background-color: #222222;
+	overflow: hidden;
+}
+#menu {
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	width: 270px;
+}
+#tabs{
+	position: absolute;
+	left: 270px;
+	top: 0px;
+	right: 0px;
+}
+
+
+/* Tools */
+.color-tools{
+	text-align: center;
+}
+.color-tool{
+	padding: 10px;
+}
+.color-tool:hover{
+	border: 1px solid #b39700;
+	color: #b39700 !important;
+}
+.selected-tool{
+	border: 1px solid #e6c200;
+	color: #e6c200 !important;
+}
+.selected-tool:hover{
+	border: 1px solid #e6c200;
+	color: #e6c200 !important;
+}
+.tool-settings{
+	margin-left: 10px;
+	margin-right: 10px;
+    max-height: 500px;
+    transition: max-height 0.25s ease-in;
+}
+.collapsed {
+    max-height: 0;
+    transition: max-height 0.00s ease-out;
+    overflow: hidden;
+ }
+  
+.tool-setting{
+	display: table;
+	margin-bottom: 15px;
+	height: 20px;
+}
+.tool-setting-cell{
+	display:table-cell;
+	text-align: center;
+	vertical-align:middle;
+}
+.tool-setting-value{
+	min-width: 30px;
+	height: 15px;
+	font-size: 13px;
+	line-height: 15px;
+	color: #fff;
+	font-weight:bold;
+	text-align: right;
+}
+.tool-setting-label{
+	min-width: 30px;
+	height: 15px;
+	font-size: 15px;
+	line-height: 15px;
+	padding-right: 5px;
+	color: #fff;
+	font-weight:bold;
+}
+.tool-setting-input {
+	width: 100%;
+}
+.tool-setting input[type=range] {
+	-webkit-appearance: none; /* Hides the slider so that custom slider can be made */
+	
+	height:15px;
+	width: 100%;
+	cursor: pointer;
+}
+.tool-setting input[type=range]::-webkit-slider-thumb {
+	-webkit-appearance: none;
+	height: 20px;
+	width: 20px;
+	background: #fff;
+	cursor: pointer;
+	margin-top: 0px; /* You need to specify a margin in Chrome, but in Firefox and IE it is automatic */
+}
+.tool-setting input[type=range]:focus {
+	outline: none;
+}
+.tool-setting select {
+    padding: 5px 8px;
+    width: 130%;
+    border: none;
+    box-shadow: none;
+    background-color: white;
+}
+.tool-setting select:focus {
+    outline: none;
+}
+
+/* checkbox */
+/* Hide the browser's default checkbox */
+.tool-setting-cell input[type=checkbox] {
+	position: relative;
+	cursor: pointer;
+	padding: 0;
+	width: 20px;
+	height: 20px;
+}
+.tool-setting-cell input[type=checkbox]:after {
+	content: '';
+	margin-right: 10px;
+	display: inline-block;
+	vertical-align: text-top;
+	width: 20px;
+	height: 20px;
+	background: white;
+}
+.tool-setting-cell input[type=checkbox]:hover:after {
+	background: #e6c200;
+}
+.tool-setting-cell input[type=checkbox]:checked:after {
+	background: #e6c200;
+}
+.tool-setting-cell input[type=checkbox]:disabled {
+	color: #b8b8b8;
+	cursor: auto;
+}
+.tool-setting-cell input[type=checkbox]:disabled:after {
+	box-shadow: none;
+	background: #ddd;
+}
+.tool-setting-cell input[type=checkbox]:checked:before {
+	content: '';
+	position: absolute;
+	left: 5px;
+	top: 9px;
+	background: black;
+	width: 2px;
+	height: 2px;
+	box-shadow: 2px 0 0 black, 4px 0 0 black, 4px -2px 0 black, 4px -4px 0 black, 4px -6px 0 black, 4px -8px 0 black;
+	-webkit-transform: rotate(45deg);
+			transform: rotate(45deg);
+}
+
+
+.tool-setting-cell input[type=radio] {
+	position: relative;
+	cursor: pointer;
+	padding: 0;
+	width: 20px;
+	height: 20px;
+	visibility: hidden;
+}
+.tool-setting-cell input[type=radio]::after {
+	visibility: visible;
+	content: '';
+	margin-right: 10px;
+	display: inline-block;
+	vertical-align: text-top;
+	width: 20px;
+	height: 20px;
+	background: white;
+	border-radius: 100%;
+}
+
+.tool-setting-cell .square::after {
+	visibility: visible;
+	border-radius: 0% !important;
+}
+.tool-setting-cell .diamond::after {
+	visibility: visible;
+	clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%);
+	border-radius: 0% !important;
+}
+.tool-setting-cell input[type=radio]:hover::after {
+	visibility: visible;
+	background: #e6c200;
+}
+.tool-setting-cell input[type=radio]:checked::after {
+	visibility: visible;
+	background: #e6c200;
+}
+.tool-setting-cell input[type=radio]:disabled {
+	visibility: visible;
+	color: #b8b8b8;
+	cursor: auto;
+}
+.tool-setting-cell input[type=radio]:disabled::after {
+	visibility: visible;
+	box-shadow: none;
+	background: #ddd;
+}
+.tool-setting-cell input[type=radio]:checked::before {
+	visibility: visible;
+	content: '';
+	position: absolute;
+	left: 5px;
+	z-index: 1000;
+	top: 9px;
+	background: black;
+	width: 2px;
+	height: 2px;
+	box-shadow: 2px 0 0 black, 4px 0 0 black, 4px -2px 0 black, 4px -4px 0 black, 4px -6px 0 black, 4px -8px 0 black;
+	-webkit-transform: rotate(45deg);
+			transform: rotate(45deg);
+}

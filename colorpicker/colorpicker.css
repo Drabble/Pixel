@@ -1,0 +1,101 @@
+/* Colorwheel style */
+.wheel-container{
+	position: relative;
+	margin: 10px;
+	-webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+.wheel {
+    cursor: crosshair;
+    float: left;
+    border: 0;
+	  clip-path: circle(150px at center);
+}
+.transparency-background{
+	display: inline-block;
+	background-image: url("transparency.png");
+	background-repeat: repeat;
+	border: none;
+	padding: 0;
+}
+
+/* Picked color preview */
+.picked-color{
+	width: 30px;
+	height: 30px;
+	/*border-radius: 50px;*/
+	border: none;
+	padding: 0;
+}
+.picked-color-background{
+	display: block;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+/* Controls & data about the color */
+.color-data {
+    margin: 10px;
+}
+.color-data > div {
+    border: 1px solid #2F2F2F;
+    margin-bottom: 5px;
+    overflow: hidden;
+    padding: 5px;
+}
+.color-data label {
+    float: left;
+}
+.color-data > div input {
+    background-color: #121212;
+    border: 1px solid #2F2F2F;
+    color: #DDDDDD;
+    float: right;
+    font-size: 10px;
+    height: 22px;
+    margin-left: 6px;
+    text-align: center;
+    text-transform: uppercase;
+    width: 75px;
+}
+
+/* Sliders */
+.color-controls {
+	margin: 10px;
+}
+.color-control {
+	margin-bottom: 10px;
+}
+.brightness-slider {
+  /* transform: rotate(270deg);
+  -moz-transform: rotate(270deg);*/ /*do same for other browsers if required*/
+  background: linear-gradient(to right, #000000, #ffffff);
+}
+.opacity-slider {
+  /* transform: rotate(270deg);
+  -moz-transform: rotate(270deg);*/ /*do same for other browsers if required*/
+  background-image: url("transparency-slider.png");
+  background-size: 100% 100%;
+}
+.color-control[type=range] {
+  -webkit-appearance: none; /* Hides the slider so that custom slider can be made */
+  height:15px;
+  width:100%;
+  cursor: pointer;
+}
+.color-control[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  height: 20px;
+  width: 20px;
+  background: #fff;
+  cursor: pointer;
+  margin-top: 0px; /* You need to specify a margin in Chrome, but in Firefox and IE it is automatic */
+}
+.color-control[type=range]:focus {
+  outline: none;
+}
